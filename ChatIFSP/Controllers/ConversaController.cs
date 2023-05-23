@@ -1,5 +1,6 @@
 ﻿using ChatIFSP.Models;
 using ChatIFSP.Views;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using System;
@@ -8,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace ChatIFSP.Controllers
 {
+    //ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class ConversaController : DefaultController
     {
         //public static int usuarioAtual = 1;
@@ -54,6 +55,7 @@ namespace ChatIFSP.Controllers
             List<Mensagens> mensagens = Context.Mensagens //obtem lista de mensagens da conversa, incluindo dados do participante para ter acesso ao usuario e seus campos
                 .Include(p => p.Usuario)
                 .Where(m => m.idConversa == idConversa)
+                .AsNoTracking() //coment     
                 .ToList();
 
             foreach (var msg in mensagens) //formatação das mensagem para exibição em tela
@@ -73,6 +75,7 @@ namespace ChatIFSP.Controllers
             //selecionar as mensagens do outro participante com status != visualizado
             List<Mensagens> mensagens = Context.Mensagens
                 .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
+                .AsNoTracking()
                 .ToList();
 
             foreach(Mensagens msg in mensagens)
@@ -87,6 +90,7 @@ namespace ChatIFSP.Controllers
         {
             List<Mensagens> mensagens = Context.Mensagens
                 .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem == 1)
+                .AsNoTracking()
                 .ToList();
 
             foreach (Mensagens msg in mensagens)
