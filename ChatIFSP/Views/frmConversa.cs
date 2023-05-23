@@ -13,7 +13,7 @@ namespace ChatIFSP.Views
 {
     public partial class frmConversa : Form
     {
-        int conversaAtual;
+        static int conversaAtual;
         public frmConversa(int idConversa)
         {
             conversaAtual = idConversa;
@@ -24,7 +24,7 @@ namespace ChatIFSP.Views
         {
             if (!txtMensagem.Text.Trim().Equals(""))
             {
-                var mensagem = ConversaController.EnviaMensagem(txtMensagem.Text.Trim(), UsuariosController.idUsuarioLogado, conversaAtual);
+                var mensagem = MensagemController.EnviaMensagem(txtMensagem.Text.Trim(), UsuariosController.idUsuarioLogado, conversaAtual);
                 if (mensagem != null)
                 {
                     if (rtbConversa.Text.Equals(""))
@@ -48,7 +48,12 @@ namespace ChatIFSP.Views
         {
             rtbConversa.Text = ConversaController.CarregaConversa(conversaAtual);
             //criar função para dar update na tabela de mensagem, para alterar status das mensagens do outro participante
-            ConversaController.SetarVisualizacaoMensagens(conversaAtual);
+            MensagemController.SetarVisualizacaoMensagens(conversaAtual);
+        }
+
+        private void tmrConversa_Tick(object sender, EventArgs e)
+        {
+            rtbConversa.Text =  MensagemController.BuscaMensagens(conversaAtual);
         }
     }
 }

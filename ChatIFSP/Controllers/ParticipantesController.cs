@@ -26,7 +26,8 @@ namespace ChatIFSP.Controllers
                 Context.SaveChanges();
             }
             catch(Exception ex) 
-            { }
+            { 
+            }
         }
         
         public static int RetornaIdConversaParticipantes(int idUsuarioContato)

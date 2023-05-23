@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConversa));
             this.rtbConversa = new System.Windows.Forms.RichTextBox();
             this.txtMensagem = new System.Windows.Forms.TextBox();
             this.btnEnviar = new System.Windows.Forms.Button();
             this.pcbContato = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.tmrConversa = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pcbContato)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -85,6 +87,11 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             // 
+            // tmrConversa
+            // 
+            this.tmrConversa.Interval = 500;
+            this.tmrConversa.Tick += new System.EventHandler(this.tmrConversa_Tick);
+            // 
             // frmConversa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -111,5 +118,6 @@
         private PictureBox pcbContato;
         private PictureBox pictureBox2;
         public RichTextBox rtbConversa;
+        private System.Windows.Forms.Timer tmrConversa;
     }
 }
