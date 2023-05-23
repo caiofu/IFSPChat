@@ -16,7 +16,9 @@ namespace ChatIFSP.Data
 			// Configurar a conexão com o banco de dados MySQL
 			optionsBuilder.UseMySQL("Server=furegati.com.br;Database=furega76_if_chat;User=furega76_ifsp;Password=ifsp2023123456;");
 
-			
+			// Desabilitar o cache de consultas
+			optionsBuilder.EnableServiceProviderCaching(false);
+			optionsBuilder.EnableSensitiveDataLogging();
 		}
 
 		//Tabelas

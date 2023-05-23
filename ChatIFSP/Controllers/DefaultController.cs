@@ -11,5 +11,6 @@ namespace ChatIFSP.Controllers
     {
         //Para lidar com o banco
         public static DataContext Context = new DataContext();
+        
     }
 }
