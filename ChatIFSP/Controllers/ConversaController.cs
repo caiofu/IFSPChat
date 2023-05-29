@@ -1,4 +1,5 @@
-﻿using ChatIFSP.Models;
+﻿using ChatIFSP.Data;
+using ChatIFSP.Models;
 using ChatIFSP.Views;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,9 @@ namespace ChatIFSP.Controllers
 
         public static String AtualizaConversa(Mensagens msg)
         {
+            /*var entry = Context.Entry(msg);
+            entry.Reference(m => m.Usuario).Load();*/
+
             String status = "\U0001F4E4"; //envio
             StringBuilder mensagem = new StringBuilder();
             mensagem.AppendLine(status + "[" + msg.dataMensagem.ToString("HH:mm") + "] - " + msg.Usuario.apelido + ":");
@@ -29,12 +33,14 @@ namespace ChatIFSP.Controllers
 
         public static String CarregaConversa(int idConversa)
         {
+            DataContext dbContext = new DataContext();
             StringBuilder conversa = new StringBuilder();
 
-            List<Mensagens> mensagens = Context.Mensagens //obtem lista de mensagens da conversa, incluindo dados do participante para ter acesso ao usuario e seus campos
+            List<Mensagens> mensagens = dbContext.Mensagens //obtem lista de mensagens da conversa, incluindo dados do participante para ter acesso ao usuario e seus campos
                 .Include(p => p.Usuario)
                 .Where(m => m.idConversa == idConversa)
-                .AsNoTracking() //coment     
+                .OrderBy(m => m.dataMensagem)
+                .AsNoTracking() //coment   
                 .ToList();
 
             foreach (var msg in mensagens) //formatação das mensagem para exibição em tela
@@ -45,6 +51,7 @@ namespace ChatIFSP.Controllers
                 conversa.AppendLine(msg.mensagem + "\n");
                 // conversa.AppendLine(msg.);
             }
+
             return conversa.ToString();
         }
 
@@ -74,7 +81,7 @@ namespace ChatIFSP.Controllers
 
         }
 
-        public static void AbrirConversa(int idConversa)
+        public static void AbrirConversa( int idConversa)
         {
             frmConversa AbrirConversa = new frmConversa(idConversa);
 

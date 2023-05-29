@@ -53,7 +53,23 @@ namespace ChatIFSP.Views
 
         private void tmrConversa_Tick(object sender, EventArgs e)
         {
-            rtbConversa.Text =  MensagemController.BuscaMensagens(conversaAtual);
+            Task.Run(() =>
+                {
+                    String conversa = MensagemController.BuscaMensagens(conversaAtual);
+                    if (conversa != null)
+                    {
+                        rtbConversa.Invoke((MethodInvoker)delegate
+                        {
+                            rtbConversa.Text = conversa;
+                        });
+                        //rtbConversa.Text = conversa;
+                        //MessageBox.Show(conversa);
+                        //Console.WriteLine("mensagem nova...");
+                    }
+                    //MessageBox.Show(conversa);
+                    //Console.WriteLine("Sem mensagem nova...");
+                }
+            );
         }
     }
 }

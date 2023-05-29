@@ -1,258 +1,300 @@
 ﻿namespace ChatIFSP.Views
 {
-    partial class frmCadastro
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class frmCadastro
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            this.components = new System.ComponentModel.Container();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lbNome = new System.Windows.Forms.Label();
-            this.txtNome = new System.Windows.Forms.TextBox();
-            this.lbEmail = new System.Windows.Forms.Label();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.lbSenha = new System.Windows.Forms.Label();
-            this.txtSenha = new System.Windows.Forms.TextBox();
-            this.lbFoto = new System.Windows.Forms.Label();
-            this.picBoxFotoCadastro = new System.Windows.Forms.PictureBox();
-            this.btnEnviar = new System.Windows.Forms.Button();
-            this.lbComfirmarSenha = new System.Windows.Forms.Label();
-            this.txtConfirmarSenha = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxFotoCadastro)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // imageList2
-            // 
-            this.imageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Location = new System.Drawing.Point(324, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(353, 197);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // lbNome
-            // 
-            this.lbNome.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbNome.AutoSize = true;
-            this.lbNome.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbNome.ForeColor = System.Drawing.Color.White;
-            this.lbNome.Location = new System.Drawing.Point(13, 203);
-            this.lbNome.Name = "lbNome";
-            this.lbNome.Size = new System.Drawing.Size(56, 23);
-            this.lbNome.TabIndex = 1;
-            this.lbNome.Text = "Nome";
-            // 
-            // txtNome
-            // 
-            this.txtNome.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNome.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtNome.Location = new System.Drawing.Point(12, 229);
-            this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(817, 29);
-            this.txtNome.TabIndex = 2;
-            this.txtNome.TextChanged += new System.EventHandler(this.txtNome_TextChanged);
-            // 
-            // lbEmail
-            // 
-            this.lbEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbEmail.AutoSize = true;
-            this.lbEmail.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbEmail.ForeColor = System.Drawing.Color.White;
-            this.lbEmail.Location = new System.Drawing.Point(13, 274);
-            this.lbEmail.Name = "lbEmail";
-            this.lbEmail.Size = new System.Drawing.Size(51, 23);
-            this.lbEmail.TabIndex = 3;
-            this.lbEmail.Text = "Email";
-            // 
-            // txtEmail
-            // 
-            this.txtEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtEmail.Location = new System.Drawing.Point(12, 300);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(817, 29);
-            this.txtEmail.TabIndex = 4;
-            // 
-            // lbSenha
-            // 
-            this.lbSenha.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbSenha.AutoSize = true;
-            this.lbSenha.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbSenha.ForeColor = System.Drawing.Color.White;
-            this.lbSenha.Location = new System.Drawing.Point(13, 345);
-            this.lbSenha.Name = "lbSenha";
-            this.lbSenha.Size = new System.Drawing.Size(57, 23);
-            this.lbSenha.TabIndex = 5;
-            this.lbSenha.Text = "Senha";
-            // 
-            // txtSenha
-            // 
-            this.txtSenha.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSenha.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtSenha.Location = new System.Drawing.Point(12, 371);
-            this.txtSenha.Name = "txtSenha";
-            this.txtSenha.Size = new System.Drawing.Size(817, 29);
-            this.txtSenha.TabIndex = 6;
-            // 
-            // lbFoto
-            // 
-            this.lbFoto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbFoto.AutoSize = true;
-            this.lbFoto.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbFoto.ForeColor = System.Drawing.Color.White;
-            this.lbFoto.Location = new System.Drawing.Point(12, 491);
-            this.lbFoto.Name = "lbFoto";
-            this.lbFoto.Size = new System.Drawing.Size(45, 23);
-            this.lbFoto.TabIndex = 7;
-            this.lbFoto.Text = "Foto";
-            // 
-            // picBoxFotoCadastro
-            // 
-            this.picBoxFotoCadastro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.picBoxFotoCadastro.Location = new System.Drawing.Point(63, 491);
-            this.picBoxFotoCadastro.Name = "picBoxFotoCadastro";
-            this.picBoxFotoCadastro.Size = new System.Drawing.Size(185, 191);
-            this.picBoxFotoCadastro.TabIndex = 8;
-            this.picBoxFotoCadastro.TabStop = false;
-            // 
-            // btnEnviar
-            // 
-            this.btnEnviar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEnviar.Location = new System.Drawing.Point(775, 582);
-            this.btnEnviar.Name = "btnEnviar";
-            this.btnEnviar.Size = new System.Drawing.Size(171, 100);
-            this.btnEnviar.TabIndex = 10;
-            this.btnEnviar.Text = "Enviar";
-            this.btnEnviar.UseVisualStyleBackColor = true;
-            this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
-            // 
-            // lbComfirmarSenha
-            // 
-            this.lbComfirmarSenha.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbComfirmarSenha.AutoSize = true;
-            this.lbComfirmarSenha.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbComfirmarSenha.ForeColor = System.Drawing.Color.White;
-            this.lbComfirmarSenha.Location = new System.Drawing.Point(12, 417);
-            this.lbComfirmarSenha.Name = "lbComfirmarSenha";
-            this.lbComfirmarSenha.Size = new System.Drawing.Size(139, 23);
-            this.lbComfirmarSenha.TabIndex = 11;
-            this.lbComfirmarSenha.Text = "Confirmar Senha";
-            // 
-            // txtConfirmarSenha
-            // 
-            this.txtConfirmarSenha.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtConfirmarSenha.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtConfirmarSenha.Location = new System.Drawing.Point(12, 443);
-            this.txtConfirmarSenha.Name = "txtConfirmarSenha";
-            this.txtConfirmarSenha.Size = new System.Drawing.Size(817, 29);
-            this.txtConfirmarSenha.TabIndex = 12;
-            this.txtConfirmarSenha.TextChanged += new System.EventHandler(this.txtConfirmarSenha_TextChanged);
-            // 
-            // frmCadastro
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Green;
-            this.ClientSize = new System.Drawing.Size(958, 697);
-            this.Controls.Add(this.txtConfirmarSenha);
-            this.Controls.Add(this.lbComfirmarSenha);
-            this.Controls.Add(this.btnEnviar);
-            this.Controls.Add(this.picBoxFotoCadastro);
-            this.Controls.Add(this.lbFoto);
-            this.Controls.Add(this.txtSenha);
-            this.Controls.Add(this.lbSenha);
-            this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.lbEmail);
-            this.Controls.Add(this.txtNome);
-            this.Controls.Add(this.lbNome);
-            this.Controls.Add(this.pictureBox1);
-            this.Name = "frmCadastro";
-            this.Text = "frmCadastro";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxFotoCadastro)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			components = new System.ComponentModel.Container();
+			imageList1 = new ImageList(components);
+			imageList2 = new ImageList(components);
+			lbNome = new Label();
+			txtBoxNome = new TextBox();
+			lbEmail = new Label();
+			txtBoxEmail = new TextBox();
+			lbSenha = new Label();
+			txtBoxSenha = new TextBox();
+			picBoxFotoCadastro = new PictureBox();
+			btnCadastrar = new Button();
+			lbComfirmarSenha = new Label();
+			txtBoxConfirmarSenha = new TextBox();
+			groupBox1 = new GroupBox();
+			label2 = new Label();
+			btnFoto = new Button();
+			label1 = new Label();
+			txtBoxApelido = new TextBox();
+			pictureBoxAguardando = new PictureBox();
+			errorProviderCadastro = new ErrorProvider(components);
+			toolTipEmail = new ToolTip(components);
+			((System.ComponentModel.ISupportInitialize)picBoxFotoCadastro).BeginInit();
+			groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)pictureBoxAguardando).BeginInit();
+			((System.ComponentModel.ISupportInitialize)errorProviderCadastro).BeginInit();
+			SuspendLayout();
+			// 
+			// imageList1
+			// 
+			imageList1.ColorDepth = ColorDepth.Depth8Bit;
+			imageList1.ImageSize = new Size(16, 16);
+			imageList1.TransparentColor = Color.Transparent;
+			// 
+			// imageList2
+			// 
+			imageList2.ColorDepth = ColorDepth.Depth8Bit;
+			imageList2.ImageSize = new Size(16, 16);
+			imageList2.TransparentColor = Color.Transparent;
+			// 
+			// lbNome
+			// 
+			lbNome.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			lbNome.AutoSize = true;
+			lbNome.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+			lbNome.ForeColor = Color.White;
+			lbNome.Location = new Point(196, 22);
+			lbNome.Name = "lbNome";
+			lbNome.Size = new Size(58, 23);
+			lbNome.TabIndex = 0;
+			lbNome.Text = "Nome";
+			// 
+			// txtBoxNome
+			// 
+			txtBoxNome.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			txtBoxNome.Location = new Point(196, 48);
+			txtBoxNome.Name = "txtBoxNome";
+			txtBoxNome.Size = new Size(423, 29);
+			txtBoxNome.TabIndex = 1;
+			// 
+			// lbEmail
+			// 
+			lbEmail.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			lbEmail.AutoSize = true;
+			lbEmail.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+			lbEmail.ForeColor = Color.White;
+			lbEmail.Location = new Point(197, 155);
+			lbEmail.Name = "lbEmail";
+			lbEmail.Size = new Size(53, 23);
+			lbEmail.TabIndex = 9;
+			lbEmail.Text = "Email";
+			// 
+			// txtBoxEmail
+			// 
+			txtBoxEmail.BackColor = SystemColors.Window;
+			txtBoxEmail.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			txtBoxEmail.Location = new Point(197, 181);
+			txtBoxEmail.Name = "txtBoxEmail";
+			txtBoxEmail.Size = new Size(422, 29);
+			txtBoxEmail.TabIndex = 3;
+			// 
+			// lbSenha
+			// 
+			lbSenha.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			lbSenha.AutoSize = true;
+			lbSenha.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+			lbSenha.ForeColor = Color.White;
+			lbSenha.Location = new Point(197, 225);
+			lbSenha.Name = "lbSenha";
+			lbSenha.Size = new Size(58, 23);
+			lbSenha.TabIndex = 11;
+			lbSenha.Text = "Senha";
+			// 
+			// txtBoxSenha
+			// 
+			txtBoxSenha.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			txtBoxSenha.Location = new Point(197, 251);
+			txtBoxSenha.Name = "txtBoxSenha";
+			txtBoxSenha.PasswordChar = '*';
+			txtBoxSenha.Size = new Size(207, 29);
+			txtBoxSenha.TabIndex = 4;
+			txtBoxSenha.UseSystemPasswordChar = true;
+			// 
+			// picBoxFotoCadastro
+			// 
+			picBoxFotoCadastro.Image = Properties.Resources.mystery;
+			picBoxFotoCadastro.Location = new Point(12, 22);
+			picBoxFotoCadastro.Name = "picBoxFotoCadastro";
+			picBoxFotoCadastro.Size = new Size(171, 160);
+			picBoxFotoCadastro.SizeMode = PictureBoxSizeMode.Zoom;
+			picBoxFotoCadastro.TabIndex = 8;
+			picBoxFotoCadastro.TabStop = false;
+			// 
+			// btnCadastrar
+			// 
+			btnCadastrar.Font = new Font("Calibri", 12F, FontStyle.Bold, GraphicsUnit.Point);
+			btnCadastrar.Location = new Point(495, 315);
+			btnCadastrar.Name = "btnCadastrar";
+			btnCadastrar.Size = new Size(124, 56);
+			btnCadastrar.TabIndex = 6;
+			btnCadastrar.Text = "CADASTRAR";
+			btnCadastrar.UseVisualStyleBackColor = true;
+			btnCadastrar.Click += btnEnviar_Click;
+			// 
+			// lbComfirmarSenha
+			// 
+			lbComfirmarSenha.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			lbComfirmarSenha.AutoSize = true;
+			lbComfirmarSenha.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+			lbComfirmarSenha.ForeColor = Color.White;
+			lbComfirmarSenha.Location = new Point(410, 225);
+			lbComfirmarSenha.Name = "lbComfirmarSenha";
+			lbComfirmarSenha.Size = new Size(141, 23);
+			lbComfirmarSenha.TabIndex = 11;
+			lbComfirmarSenha.Text = "Confirmar Senha";
+			// 
+			// txtBoxConfirmarSenha
+			// 
+			txtBoxConfirmarSenha.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			txtBoxConfirmarSenha.Location = new Point(410, 251);
+			txtBoxConfirmarSenha.Name = "txtBoxConfirmarSenha";
+			txtBoxConfirmarSenha.PasswordChar = '*';
+			txtBoxConfirmarSenha.Size = new Size(209, 29);
+			txtBoxConfirmarSenha.TabIndex = 5;
+			txtBoxConfirmarSenha.UseSystemPasswordChar = true;
+			// 
+			// groupBox1
+			// 
+			groupBox1.Controls.Add(label2);
+			groupBox1.Controls.Add(btnFoto);
+			groupBox1.Controls.Add(btnCadastrar);
+			groupBox1.Controls.Add(label1);
+			groupBox1.Controls.Add(txtBoxApelido);
+			groupBox1.Controls.Add(txtBoxNome);
+			groupBox1.Controls.Add(txtBoxConfirmarSenha);
+			groupBox1.Controls.Add(picBoxFotoCadastro);
+			groupBox1.Controls.Add(lbNome);
+			groupBox1.Controls.Add(lbComfirmarSenha);
+			groupBox1.Controls.Add(lbEmail);
+			groupBox1.Controls.Add(txtBoxEmail);
+			groupBox1.Controls.Add(lbSenha);
+			groupBox1.Controls.Add(txtBoxSenha);
+			groupBox1.Controls.Add(pictureBoxAguardando);
+			groupBox1.Location = new Point(12, 12);
+			groupBox1.Name = "groupBox1";
+			groupBox1.Size = new Size(642, 411);
+			groupBox1.TabIndex = 0;
+			groupBox1.TabStop = false;
+			// 
+			// label2
+			// 
+			label2.AutoSize = true;
+			label2.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+			label2.ForeColor = Color.LightCoral;
+			label2.Location = new Point(197, 284);
+			label2.Name = "label2";
+			label2.Size = new Size(210, 15);
+			label2.TabIndex = 0;
+			label2.Text = "* Senha deve ter no mínimo 6 dígitos";
+			// 
+			// btnFoto
+			// 
+			btnFoto.Location = new Point(35, 206);
+			btnFoto.Name = "btnFoto";
+			btnFoto.Size = new Size(121, 30);
+			btnFoto.TabIndex = 7;
+			btnFoto.Text = "Upload de Foto";
+			btnFoto.UseVisualStyleBackColor = true;
+			btnFoto.Click += btnFoto_Click;
+			// 
+			// label1
+			// 
+			label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			label1.AutoSize = true;
+			label1.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+			label1.ForeColor = Color.White;
+			label1.Location = new Point(196, 90);
+			label1.Name = "label1";
+			label1.Size = new Size(72, 23);
+			label1.TabIndex = 8;
+			label1.Text = "Apelido";
+			// 
+			// txtBoxApelido
+			// 
+			txtBoxApelido.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+			txtBoxApelido.Location = new Point(197, 116);
+			txtBoxApelido.MaxLength = 10;
+			txtBoxApelido.Name = "txtBoxApelido";
+			txtBoxApelido.Size = new Size(422, 29);
+			txtBoxApelido.TabIndex = 2;
+			// 
+			// pictureBoxAguardando
+			// 
+			pictureBoxAguardando.BackColor = Color.Transparent;
+			pictureBoxAguardando.Image = Properties.Resources.cadastroAnimG1;
+			pictureBoxAguardando.Location = new Point(92, 297);
+			pictureBoxAguardando.Name = "pictureBoxAguardando";
+			pictureBoxAguardando.Size = new Size(504, 108);
+			pictureBoxAguardando.SizeMode = PictureBoxSizeMode.Zoom;
+			pictureBoxAguardando.TabIndex = 16;
+			pictureBoxAguardando.TabStop = false;
+			pictureBoxAguardando.Visible = false;
+			// 
+			// errorProviderCadastro
+			// 
+			errorProviderCadastro.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+			errorProviderCadastro.ContainerControl = this;
+			// 
+			// frmCadastro
+			// 
+			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = Color.FromArgb(8, 101, 25);
+			ClientSize = new Size(668, 435);
+			Controls.Add(groupBox1);
+			FormBorderStyle = FormBorderStyle.FixedSingle;
+			Name = "frmCadastro";
+			StartPosition = FormStartPosition.CenterScreen;
+			Text = "Cadastro de Usuário";
+			((System.ComponentModel.ISupportInitialize)picBoxFotoCadastro).EndInit();
+			groupBox1.ResumeLayout(false);
+			groupBox1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)pictureBoxAguardando).EndInit();
+			((System.ComponentModel.ISupportInitialize)errorProviderCadastro).EndInit();
+			ResumeLayout(false);
+		}
 
-        }
+		#endregion
 
-        #endregion
-
-        private ImageList imageList1;
-        private ImageList imageList2;
-        private PictureBox pictureBox1;
-        private Label lbNome;
-        private TextBox txtNome;
-        private Label lbEmail;
-        private TextBox txtEmail;
-        private Label lbSenha;
-        public TextBox txtSenha;
-        private Label lbFoto;
-        private PictureBox picBoxFotoCadastro;
-        private Button btnEnviar;
-        private Label lbComfirmarSenha;
-        public TextBox txtConfirmarSenha;
-    }
+		private ImageList imageList1;
+		private ImageList imageList2;
+		private Label lbNome;
+		private TextBox txtBoxNome;
+		private Label lbEmail;
+		private TextBox txtBoxEmail;
+		private Label lbSenha;
+		public TextBox txtBoxSenha;
+		private PictureBox picBoxFotoCadastro;
+		private Button btnCadastrar;
+		private Label lbComfirmarSenha;
+		public TextBox txtBoxConfirmarSenha;
+		private GroupBox groupBox1;
+		private Button btnFoto;
+		private Label label1;
+		private TextBox txtBoxApelido;
+		private ErrorProvider errorProviderCadastro;
+		private PictureBox pictureBoxAguardando;
+		private Label label2;
+		private ToolTip toolTipEmail;
+	}
 }

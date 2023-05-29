@@ -2,17 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.AccessControl;
+using ChatIFSP.Data;
 
 namespace ChatIFSP.Controllers
 {
     internal class MensagemController : DefaultController
     {
-
         public static Mensagens EnviaMensagem(String msg, int remetente, int conversa)
         {
+            DataContext dbContext = new DataContext();
             if (!msg.Trim().Equals(""))
             {
                 //var conversaAtual = Context.Conversas.Find(msg.idConversa);
@@ -40,7 +43,7 @@ namespace ChatIFSP.Controllers
             //selecionar as mensagens do outro participante com status != visualizado
             List<Mensagens> mensagens = Context.Mensagens
                 .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
-                .AsNoTracking()
+                //.AsNoTracking()
                 .ToList();
 
             foreach (Mensagens msg in mensagens)
@@ -77,18 +80,35 @@ namespace ChatIFSP.Controllers
 
         public static String BuscaMensagens(int conversa)
         {
-            List<Mensagens> msgNovas = Context.Mensagens
+            DataContext dbContext = new DataContext();
+            String _conversa = null;
+            List<Mensagens> msgNovas = dbContext.Mensagens
                 .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
                 .AsNoTracking()
                 .ToList();
 
-            if(msgNovas.Count > 0)
+            if (msgNovas != null && msgNovas.Count > 0)
             {
                 SetarVisualizacaoMensagens(conversa);
+                _conversa = ConversaController.CarregaConversa(conversa);
             }
+            else _conversa = ConversaController.CarregaConversa(conversa);
 
-            String _conversa = ConversaController.CarregaConversa(conversa);
             return _conversa;
         }
+        
+        /*public static bool TemMensagemNova(int idConversa)
+        {
+            bool msgNova = false;
+            
+           if(Context.Mensagens.Where(m => m.idConversa == idConversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
+                .AsNoTracking()
+                .FirstOrDefault() != null)
+            {
+                msgNova = true;
+            }
+			return msgNova;
+
+		}*/
     }
 }

@@ -12,27 +12,27 @@ using System.Windows.Forms;
 
 namespace ChatIFSP.Views
 {
-    public partial class frmEditarPerfil : Form
-    {
-        public frmEditarPerfil(int idUsuarioLogado)
-        {
-            InitializeComponent();
+	public partial class frmEditarPerfil : Form
+	{
+		public frmEditarPerfil(int idUsuarioLogado)
+		{
+			InitializeComponent();
 
-            Usuarios dadosUsuario = new Usuarios();
-           dadosUsuario = UsuariosController.CarregadadosUsuario(idUsuarioLogado);
-           
-            txtBoxNome.Text = dadosUsuario.nome;
-            txtBoxApelido.Text = dadosUsuario.apelido;
-            txtBoxEmail.Text = dadosUsuario.email;
-      
-            //Carregando a foto
-            byte[] imagemBytes = Convert.FromBase64String(dadosUsuario.foto);
+			Usuarios dadosUsuario = new Usuarios();
+			dadosUsuario = UsuariosController.CarregadadosUsuario(idUsuarioLogado);
 
-            using (MemoryStream ms = new MemoryStream(imagemBytes))
-            {
-                pbFoto.Image = Image.FromStream(ms);
-            }
+			txtBoxNome.Text = dadosUsuario.nome;
+			txtBoxApelido.Text = dadosUsuario.apelido;
+			txtBoxEmail.Text = dadosUsuario.email;
 
-        }
-    }
+			//Carregando a foto
+			byte[] imagemBytes = Convert.FromBase64String(dadosUsuario.foto);
+
+			using (MemoryStream ms = new MemoryStream(imagemBytes))
+			{
+				pbFoto.Image = Image.FromStream(ms);
+			}
+
+		}
+	}
 }
