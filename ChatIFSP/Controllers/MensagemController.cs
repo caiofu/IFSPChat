@@ -13,6 +13,7 @@ namespace ChatIFSP.Controllers
 {
     internal class MensagemController : DefaultController
     {
+        
         public static Mensagens EnviaMensagem(String msg, int remetente, int conversa)
         {
             DataContext dbContext = new DataContext();
@@ -39,8 +40,22 @@ namespace ChatIFSP.Controllers
 
         public static void SetarVisualizacaoMensagens(int conversa)
         {
+            //DataContext dbContext = new DataContext();
             //chamar controller mensagem para setar 1 por 1 retorno de uma lista de mensagens da conversa
             //selecionar as mensagens do outro participante com status != visualizado
+
+            using (DataContext dc = new())
+            {
+                List<Mensagens> lista = Context.Mensagens.Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3).ToList();
+                lista.ForEach(p => p.statusMensagem = 3);
+                lista.ForEach(p => dc.Mensagens.Update(p));
+                dc.SaveChanges();
+                dc.Dispose();
+            }
+
+            return;
+
+
             List<Mensagens> mensagens = Context.Mensagens
                 .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
                 //.AsNoTracking()
@@ -56,9 +71,10 @@ namespace ChatIFSP.Controllers
 
         public static void SetarRecebimentoMensagens(int conversa)
         {
-            List<Mensagens> mensagens = Context.Mensagens
+            DataContext dbContext = new DataContext();
+            List<Mensagens> mensagens = dbContext.Mensagens
                 .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem == 1)
-                .AsNoTracking()
+                //.AsNoTracking()
                 .ToList();
 
             foreach (Mensagens msg in mensagens)
@@ -79,21 +95,24 @@ namespace ChatIFSP.Controllers
         }
 
         public static String BuscaMensagens(int conversa)
-        {
-            DataContext dbContext = new DataContext();
+        { 
             String _conversa = null;
-            List<Mensagens> msgNovas = dbContext.Mensagens
+            DataContext dc = new();
+            
+ 
+            List<Mensagens> msgNovas = dc.Mensagens
                 .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
                 .AsNoTracking()
                 .ToList();
+            dc.Dispose();
 
-            if (msgNovas != null && msgNovas.Count > 0)
-            {
-                SetarVisualizacaoMensagens(conversa);
-                _conversa = ConversaController.CarregaConversa(conversa);
-            }
-            else _conversa = ConversaController.CarregaConversa(conversa);
-
+                if (msgNovas != null && msgNovas.Count > 0)
+                {
+                    SetarVisualizacaoMensagens(conversa);
+                    _conversa = ConversaController.CarregaConversa(conversa);
+                }
+                else _conversa = ConversaController.CarregaConversa(conversa);
+            
             return _conversa;
         }
         

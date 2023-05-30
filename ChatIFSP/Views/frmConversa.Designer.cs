@@ -28,88 +28,92 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConversa));
-            rtbConversa = new RichTextBox();
-            txtMensagem = new TextBox();
-            btnEnviar = new Button();
-            pcbContato = new PictureBox();
-            pictureBox2 = new PictureBox();
-            tmrConversa = new System.Windows.Forms.Timer(components);
-            ((System.ComponentModel.ISupportInitialize)pcbContato).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            SuspendLayout();
+            this.rtbConversa = new System.Windows.Forms.RichTextBox();
+            this.txtMensagem = new System.Windows.Forms.TextBox();
+            this.btnEnviar = new System.Windows.Forms.Button();
+            this.pcbContato = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.tmrConversa = new System.Windows.Forms.Timer(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.pcbContato)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.SuspendLayout();
             // 
             // rtbConversa
             // 
-            rtbConversa.Location = new Point(12, 58);
-            rtbConversa.Name = "rtbConversa";
-            rtbConversa.ScrollBars = RichTextBoxScrollBars.Vertical;
-            rtbConversa.Size = new Size(415, 287);
-            rtbConversa.TabIndex = 2;
-            rtbConversa.Text = "";
+            this.rtbConversa.Location = new System.Drawing.Point(12, 58);
+            this.rtbConversa.Name = "rtbConversa";
+            this.rtbConversa.ReadOnly = true;
+            this.rtbConversa.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtbConversa.Size = new System.Drawing.Size(415, 287);
+            this.rtbConversa.TabIndex = 2;
+            this.rtbConversa.Text = "";
+            this.rtbConversa.TextChanged += new System.EventHandler(this.rtbConversa_TextChanged);
             // 
             // txtMensagem
             // 
-            txtMensagem.Location = new Point(12, 351);
-            txtMensagem.Multiline = true;
-            txtMensagem.Name = "txtMensagem";
-            txtMensagem.Size = new Size(346, 60);
-            txtMensagem.TabIndex = 0;
+            this.txtMensagem.Location = new System.Drawing.Point(12, 351);
+            this.txtMensagem.Multiline = true;
+            this.txtMensagem.Name = "txtMensagem";
+            this.txtMensagem.Size = new System.Drawing.Size(346, 60);
+            this.txtMensagem.TabIndex = 0;
             // 
             // btnEnviar
             // 
-            btnEnviar.Location = new Point(364, 351);
-            btnEnviar.Name = "btnEnviar";
-            btnEnviar.Size = new Size(63, 60);
-            btnEnviar.TabIndex = 1;
-            btnEnviar.Text = "ENVIAR";
-            btnEnviar.UseVisualStyleBackColor = true;
-            btnEnviar.Click += btnEnviar_Click;
+            this.btnEnviar.Location = new System.Drawing.Point(364, 351);
+            this.btnEnviar.Name = "btnEnviar";
+            this.btnEnviar.Size = new System.Drawing.Size(63, 60);
+            this.btnEnviar.TabIndex = 1;
+            this.btnEnviar.Text = "ENVIAR";
+            this.btnEnviar.UseVisualStyleBackColor = true;
+            this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
             // 
             // pcbContato
             // 
-            pcbContato.Image = (Image)resources.GetObject("pcbContato.Image");
-            pcbContato.Location = new Point(433, 58);
-            pcbContato.Name = "pcbContato";
-            pcbContato.Size = new Size(159, 159);
-            pcbContato.SizeMode = PictureBoxSizeMode.StretchImage;
-            pcbContato.TabIndex = 3;
-            pcbContato.TabStop = false;
+            this.pcbContato.Image = ((System.Drawing.Image)(resources.GetObject("pcbContato.Image")));
+            this.pcbContato.Location = new System.Drawing.Point(433, 58);
+            this.pcbContato.Name = "pcbContato";
+            this.pcbContato.Size = new System.Drawing.Size(159, 159);
+            this.pcbContato.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbContato.TabIndex = 3;
+            this.pcbContato.TabStop = false;
             // 
             // pictureBox2
             // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(433, 254);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(159, 157);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 4;
-            pictureBox2.TabStop = false;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(433, 254);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(159, 157);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
             // 
             // tmrConversa
             // 
-            tmrConversa.Enabled = true;
-            tmrConversa.Interval = 3000;
-            tmrConversa.Tick += tmrConversa_Tick;
+            this.tmrConversa.Enabled = true;
+            this.tmrConversa.Interval = 3000;
+            this.tmrConversa.Tick += new System.EventHandler(this.tmrConversa_Tick);
             // 
             // frmConversa
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(600, 423);
-            Controls.Add(pictureBox2);
-            Controls.Add(pcbContato);
-            Controls.Add(btnEnviar);
-            Controls.Add(txtMensagem);
-            Controls.Add(rtbConversa);
-            Name = "frmConversa";
-            Text = "Conversa";
-            Load += frmConversa_Load;
-            ((System.ComponentModel.ISupportInitialize)pcbContato).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(600, 423);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pcbContato);
+            this.Controls.Add(this.btnEnviar);
+            this.Controls.Add(this.txtMensagem);
+            this.Controls.Add(this.rtbConversa);
+            this.Name = "frmConversa";
+            this.Text = "Conversa";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmConversa_FormClosing);
+            this.Load += new System.EventHandler(this.frmConversa_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pcbContato)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

@@ -14,6 +14,7 @@ namespace ChatIFSP.Views
     public partial class frmConversa : Form
     {
         static int conversaAtual;
+        private CancellationTokenSource cancellationTokenSource;
         public frmConversa(int idConversa)
         {
             conversaAtual = idConversa;
@@ -53,23 +54,43 @@ namespace ChatIFSP.Views
 
         private void tmrConversa_Tick(object sender, EventArgs e)
         {
+            cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken cancellationToken = cancellationTokenSource.Token;
+
             Task.Run(() =>
+            {
+                String conversa = null;
+                while (!cancellationToken.IsCancellationRequested)
                 {
-                    String conversa = MensagemController.BuscaMensagens(conversaAtual);
+                    conversa = MensagemController.BuscaMensagens(conversaAtual);
                     if (conversa != null)
                     {
                         rtbConversa.Invoke((MethodInvoker)delegate
                         {
                             rtbConversa.Text = conversa;
                         });
-                        //rtbConversa.Text = conversa;
-                        //MessageBox.Show(conversa);
-                        //Console.WriteLine("mensagem nova...");
                     }
-                    //MessageBox.Show(conversa);
-                    //Console.WriteLine("Sem mensagem nova...");
+
+                    // Verificar o cancelamento antes de aguardar o próximo intervalo do timer
+                    if (!cancellationToken.IsCancellationRequested)
+                    {
+                        // Aguardar o próximo intervalo do timer (3 segundos)
+                        Thread.Sleep(3000);
+                    }
                 }
-            );
+            }, cancellationToken);
+        }
+
+        private void rtbConversa_TextChanged(object sender, EventArgs e)
+        {
+            rtbConversa.SelectionStart = rtbConversa.Text.Length;
+            rtbConversa.ScrollToCaret();
+        }
+
+        private void frmConversa_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cancellationTokenSource?.Cancel(); // cancelamento do timer para evitar processos simultâneos durante fechamento do formulário
+
         }
     }
 }
