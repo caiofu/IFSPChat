@@ -94,6 +94,10 @@ namespace ChatIFSP.Views
 		{
 			try
 			{
+				//Definir o novo tamanho da tela
+				Screen screen = Screen.PrimaryScreen;
+				int screenHeight = screen.WorkingArea.Height;
+				this.Height = screenHeight * 3 / 4;
 				//Lista de contatos
 				CarregaContatos(idUsuarioLogado);
 
