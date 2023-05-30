@@ -18,6 +18,9 @@ namespace ChatIFSP
 
             InitializeComponent();
 
+            KeyPreview = true;
+            KeyDown += frmLogin_KeyDown;
+
             // Configura o BackgroundWorker (server para criar o processo de login em uma Tread separada , para ocorrer a animação)
             loginWorker = new BackgroundWorker();
             loginWorker.WorkerReportsProgress = true;
@@ -25,6 +28,16 @@ namespace ChatIFSP
             loginWorker.RunWorkerCompleted += LoginWorker_RunWorkerCompleted;
 
 
+        }
+
+        // Função que verifica se a tecla Enter foi pressionada
+        private void frmLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnEntrar_Click(sender, e);
+            }
         }
 
         private void btnEntrar_Click(object sender, EventArgs e)
@@ -155,4 +168,5 @@ namespace ChatIFSP
 
         }
     }
+
 }

@@ -18,9 +18,20 @@ namespace ChatIFSP.Views
 		public frmAdicionaContato()
 		{
 			InitializeComponent();
+
+			KeyPreview = true;
+			KeyDown += frmLogin_KeyDown;
 		}
 
-		private async void btnBuscar_Click(object sender, EventArgs e)
+        private void frmLogin_KeyDown(object? sender, KeyEventArgs e)
+        {
+			if (e.KeyCode == Keys.Enter)
+			{
+				btnBuscar_Click(sender, e);
+			}
+		}
+
+        private async void btnBuscar_Click(object sender, EventArgs e)
 		{
 			// Limpar o painel de resultados
 			flowLayoutPanelResultadoContatos.Controls.Clear();
