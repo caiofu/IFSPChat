@@ -43,9 +43,9 @@ namespace ChatIFSP.Views
 			int idConversa = ParticipantesController.RetornaIdConversaParticipantes(idUsuario);
 
 			//Abrindo em uma nova Thread
-		
-			Task.Run(() => ConversaController.AbrirConversa( idConversa));
 
+			//Task.Run(() => ConversaController.AbrirConversa( idConversa));
+			ConversaController.AbrirConversa(idConversa); //Verificar necessidade ou nao de colocar em uma thread
 
 		}
 	}
