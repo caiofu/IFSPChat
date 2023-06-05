@@ -46,6 +46,7 @@ namespace ChatIFSP.Controllers
                 .ToList();
             
 
+            dbContext.Dispose();
             foreach (var msg in mensagens) //formatação das mensagem para exibição em tela
             {                              //necessário validação do outro participante para definir melhor o status
                 String status = UsuariosController.idUsuarioLogado == msg.idRemetente ? MensagemController.VerificaStatusMensagem(msg) : ""; //if ternário para definir status da mensagem
