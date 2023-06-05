@@ -18,10 +18,10 @@ namespace ChatIFSP.Controllers
         //public static int usuarioAtual = 1;
         
 
-        public static String AtualizaConversa(Mensagens msg)
+        public static String AtualizaConversa(Mensagens msg, DataContext Context)
         {
-            /*var entry = Context.Entry(msg);
-            entry.Reference(m => m.Usuario).Load();*/
+            var entry = Context.Entry(msg);
+            entry.Reference(m => m.Usuario).Load();
 
             String status = "\U0001F4E4"; //envio
             StringBuilder mensagem = new StringBuilder();
@@ -31,17 +31,20 @@ namespace ChatIFSP.Controllers
             return mensagem.ToString();
         }
 
-        public static String CarregaConversa(int idConversa)
+        public static String CarregaConversa(int idConversa, DataContext Context)
         {
-            DataContext dbContext = new DataContext();
-            StringBuilder conversa = new StringBuilder();
+            StringBuilder conversa;
+            List<Mensagens> mensagens;
+            
+            conversa = new StringBuilder();
 
-            List<Mensagens> mensagens = dbContext.Mensagens //obtem lista de mensagens da conversa, incluindo dados do participante para ter acesso ao usuario e seus campos
+            mensagens = Context.Mensagens //obtem lista de mensagens da conversa, incluindo dados do participante para ter acesso ao usuario e seus campos
                 .Include(p => p.Usuario)
                 .Where(m => m.idConversa == idConversa)
                 .OrderBy(m => m.dataMensagem)
                 .AsNoTracking() //coment   
                 .ToList();
+            
 
             foreach (var msg in mensagens) //formatação das mensagem para exibição em tela
             {                              //necessário validação do outro participante para definir melhor o status
@@ -53,6 +56,15 @@ namespace ChatIFSP.Controllers
             }
 
             return conversa.ToString();
+            //DataContext dbContext = new DataContext();
+            /*StringBuilder conversa = new StringBuilder();
+
+            List<Mensagens> mensagens = dbContext.Mensagens //obtem lista de mensagens da conversa, incluindo dados do participante para ter acesso ao usuario e seus campos
+                .Include(p => p.Usuario)
+                .Where(m => m.idConversa == idConversa)
+                .OrderBy(m => m.dataMensagem)
+                .AsNoTracking() //coment   
+                .ToList();*/
         }
 
         
@@ -61,7 +73,6 @@ namespace ChatIFSP.Controllers
         {
             try
             {
-
                 Conversas novaConversa = new Conversas();
                 novaConversa.dataCriacao = DateTime.Now;
                 Context.Conversas.Add(novaConversa);
@@ -83,7 +94,8 @@ namespace ChatIFSP.Controllers
 
         public static void AbrirConversa( int idConversa)
         {
-            frmConversa AbrirConversa = new frmConversa(idConversa);
+            DataContext ContextConversa = new DataContext(); 
+            frmConversa AbrirConversa = new frmConversa(idConversa, ContextConversa);
 
             AbrirConversa.ShowDialog();
         }

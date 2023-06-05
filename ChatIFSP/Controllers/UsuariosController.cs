@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using ChatIFSP.Models;
 using System.Net;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace ChatIFSP.Controllers
 {
@@ -29,9 +30,23 @@ namespace ChatIFSP.Controllers
                 idUsuarioLogado = usuario.idUsuario;
                 retorno = usuario.idUsuario;
 			}
-			
-			return retorno;
-		}
+            return retorno;
+        }
+
+        public static bool Logout()
+        {
+            bool retorno = false;
+            var usuario = Context.Usuarios.Where(u => u.idUsuario ==  idUsuarioLogado ).FirstOrDefault();
+            if (usuario != null)
+            {
+                //Definindo o status para offline
+                usuario.status = 0;
+                Context.Update(usuario);
+                Context.SaveChanges();
+                retorno = true;
+            }
+                return retorno;
+        }
 
         public static Usuarios VerficaUsuarioExiste(String email)
         {

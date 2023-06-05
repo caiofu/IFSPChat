@@ -13,9 +13,10 @@ namespace ChatIFSP.Controllers
 {
     internal class MensagemController : DefaultController
     {
-        public static Mensagens EnviaMensagem(String msg, int remetente, int conversa)
+        
+        public static Mensagens ?EnviaMensagem(String msg, int remetente, int conversa, DataContext Context)
         {
-            DataContext dbContext = new DataContext();
+            //DataContext dbContext = new DataContext();
             if (!msg.Trim().Equals(""))
             {
                 //var conversaAtual = Context.Conversas.Find(msg.idConversa);
@@ -31,16 +32,27 @@ namespace ChatIFSP.Controllers
 
                 Context.Mensagens.Add(mensagem);
                 Context.SaveChanges();
-
+                //Context.Dispose();
                 return mensagem;
             }
             else return null;
         }
 
-        public static void SetarVisualizacaoMensagens(int conversa)
+        public static void SetarVisualizacaoMensagens(int conversa, DataContext Context)
         {
+            //DataContext dbContext = new DataContext();
             //chamar controller mensagem para setar 1 por 1 retorno de uma lista de mensagens da conversa
             //selecionar as mensagens do outro participante com status != visualizado
+            
+            List<Mensagens> lista = Context.Mensagens.Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3).ToList();
+            lista.ForEach(p => p.statusMensagem = 3);
+            lista.ForEach(p => Context.Mensagens.Update(p));
+            Context.SaveChanges();
+            
+            
+            return;
+
+
             List<Mensagens> mensagens = Context.Mensagens
                 .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
                 //.AsNoTracking()
@@ -56,9 +68,10 @@ namespace ChatIFSP.Controllers
 
         public static void SetarRecebimentoMensagens(int conversa)
         {
-            List<Mensagens> mensagens = Context.Mensagens
+            DataContext dbContext = new DataContext();
+            List<Mensagens> mensagens = dbContext.Mensagens
                 .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem == 1)
-                .AsNoTracking()
+                //.AsNoTracking()
                 .ToList();
 
             foreach (Mensagens msg in mensagens)
@@ -78,22 +91,28 @@ namespace ChatIFSP.Controllers
             return status;
         }
 
-        public static String BuscaMensagens(int conversa)
-        {
-            DataContext dbContext = new DataContext();
-            String _conversa = null;
-            List<Mensagens> msgNovas = dbContext.Mensagens
-                .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
-                .AsNoTracking()
-                .ToList();
-
-            if (msgNovas != null && msgNovas.Count > 0)
+        public static async Task<string> BuscaMensagens(int conversa)
+        { 
+            String ?_conversa = null;
+            
+            using(DataContext dc = new DataContext())
             {
-                SetarVisualizacaoMensagens(conversa);
-                _conversa = ConversaController.CarregaConversa(conversa);
-            }
-            else _conversa = ConversaController.CarregaConversa(conversa);
+                List<Mensagens> msgNovas = await dc.Mensagens
+                    .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
+                    .AsNoTracking()
+                    .ToListAsync();
 
+                if (msgNovas != null && msgNovas.Count > 0)
+                {
+                    SetarVisualizacaoMensagens(conversa, dc);
+                    _conversa = ConversaController.CarregaConversa(conversa, dc);
+                }
+                else
+                {
+                    _conversa = ConversaController.CarregaConversa(conversa, dc);
+                }
+            }
+            
             return _conversa;
         }
         

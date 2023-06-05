@@ -44,7 +44,10 @@ namespace ChatIFSP.Views
 			timerVerificarContatos.Interval = 3000; // 3 segundos
 			timerVerificarContatos.Tick += TimerVerificarContatos_Tick; //Associa o metodo ao controlador de eventos
 			timerVerificarContatos.Start();
-		}
+
+			//Ação ao fechar.
+            this.FormClosing += frmContatos_FormClosing;
+        }
 		private void CarregaContatos(int idUsuario)
 		{
 			var todosContatos = ContatosController.CarregaDadosContatos(idUsuario);
@@ -351,5 +354,24 @@ namespace ChatIFSP.Views
 			});
 
 		}
-	}
+		
+		private void frmContatos_FormClosing(object sender, FormClosingEventArgs e)
+		{
+            // Executar ação desejada ao fechar o formulário
+           
+            DialogResult result = MessageBox.Show("Deseja realmente sair do IF Chat??", "Fechar", MessageBoxButtons.YesNo);
+
+            // Verificar se o usuário escolheu "Não" para cancelar o fechamento
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true; // Cancelar o fechamento do formulário
+            }
+            else
+            {
+                // Executar ação de fechamento
+                UsuariosController.Logout();
+            }
+        }
+
+    }
 }

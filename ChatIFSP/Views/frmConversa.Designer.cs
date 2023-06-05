@@ -44,10 +44,12 @@
             // 
             rtbConversa.Location = new Point(12, 58);
             rtbConversa.Name = "rtbConversa";
+            rtbConversa.ReadOnly = true;
             rtbConversa.ScrollBars = RichTextBoxScrollBars.Vertical;
             rtbConversa.Size = new Size(415, 287);
             rtbConversa.TabIndex = 2;
             rtbConversa.Text = "";
+            rtbConversa.TextChanged += rtbConversa_TextChanged;
             // 
             // txtMensagem
             // 
@@ -89,7 +91,6 @@
             // 
             // tmrConversa
             // 
-            tmrConversa.Enabled = true;
             tmrConversa.Interval = 3000;
             tmrConversa.Tick += tmrConversa_Tick;
             // 
@@ -105,6 +106,7 @@
             Controls.Add(rtbConversa);
             Name = "frmConversa";
             Text = "Conversa";
+            FormClosing += frmConversa_FormClosing;
             Load += frmConversa_Load;
             ((System.ComponentModel.ISupportInitialize)pcbContato).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
