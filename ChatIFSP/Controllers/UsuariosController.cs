@@ -23,7 +23,7 @@ namespace ChatIFSP.Controllers
 
             if (usuario != null)
 			{
-                usuario.status = 1; //Defini o status para online
+                usuario.status = 1; //Define o status para online
                 Context.Usuarios.Update(usuario);
                 Context.SaveChanges();
 

@@ -350,8 +350,40 @@ namespace ChatIFSP.Views
 
 		}
 
-	}
+		private void txtBoxSenha_TextChanged(object sender, EventArgs e)
+		{
+			string senha = txtBoxSenha.Text;
+			//Salva localização do Cursor antes de alterar a Senha
+			int cursorPos = txtBoxSenha.SelectionStart;
 
+			if (senha.Contains(" "))
+			{
+				// Se a senha contém espaços em branco e feito uma copia e retirado o espaço
+				txtBoxSenha.Text = senha.Substring(0, senha.Length-1);
 
+				//Retorna o Cursor para sua posição
+				txtBoxSenha.SelectionStart = cursorPos;
+				txtBoxSenha.SelectionLength = 0;
+			}
+		}
 
+        private void txtBoxConfirmarSenha_TextChanged(object sender, EventArgs e)
+        {
+			string senha = txtBoxConfirmarSenha.Text;
+			//Salva localização do Cursor antes de alterar a Senha
+			int cursorPos = txtBoxConfirmarSenha.SelectionStart;
+
+			if (senha.Contains(" "))
+			{
+				// Se a senha contém espaços em branco e feito uma copia e retirado o espaço
+				txtBoxConfirmarSenha.Text = senha.Substring(0, senha.Length-1);
+
+				//Retorna o Cursor para sua posição
+				txtBoxConfirmarSenha.SelectionStart = cursorPos;
+				txtBoxConfirmarSenha.SelectionLength = 0;
+			}
+		}
+
+ 
+    }
 }
