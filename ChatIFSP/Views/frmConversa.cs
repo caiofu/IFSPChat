@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatIFSP.Controllers;
 using ChatIFSP.Data;
+using ChatIFSP.Models;
 
 namespace ChatIFSP.Views
 {
@@ -37,7 +38,7 @@ namespace ChatIFSP.Views
                     }
                     else
                     {
-                        rtbConversa.AppendText(ConversaController.AtualizaConversa(mensagem, Context));
+                        rtbConversa.AppendText("\n\n" + ConversaController.AtualizaConversa(mensagem, Context));
                     }
                     //ConversaController.AtualizaConversa(mensagem);
                     txtMensagem.Text = "";
@@ -50,9 +51,34 @@ namespace ChatIFSP.Views
 
         private void frmConversa_Load(object sender, EventArgs e)
         {
-            rtbConversa.Text = ConversaController.CarregaConversa(conversaAtual, Context);
+            //método inicializa conversa, com conteúdo e foto dos participantes
+            //Carregando dados do usuario logado
+            int idContato;
+            Usuarios meuUsuario = new Usuarios();
+            Usuarios contato = new Usuarios();
+            meuUsuario = UsuariosController.CarregadadosUsuario(UsuariosController.idUsuarioLogado);
+            idContato = ParticipantesController.RetornaIdContato(conversaAtual);
+            contato = ContatosController.CarregaDadosContato(idContato);
+
+
+            /*lbNomeUsuario.Text = meuUsuario.nome;
+            lbApelido.Text = meuUsuario.apelido;*/
+
+            //Carregando a foto
+            byte[] FotoUsuario = Convert.FromBase64String(meuUsuario.foto);
+            byte[] FotoContato = Convert.FromBase64String(contato.foto);
+
+            using (MemoryStream ms = new MemoryStream(FotoUsuario))
+            {
+                pcbUsuario.Image = Image.FromStream(ms);
+            }
+            using (MemoryStream ms = new MemoryStream(FotoContato))
+            {
+                pcbContato.Image = Image.FromStream(ms);
+            }
             //criar função para dar update na tabela de mensagem, para alterar status das mensagens do outro participante
             MensagemController.SetarVisualizacaoMensagens(conversaAtual, Context);
+            rtbConversa.Text = ConversaController.CarregaConversa(conversaAtual, Context);
         }
 
         private void tmrConversa_Tick(object sender, EventArgs e)
@@ -105,6 +131,16 @@ namespace ChatIFSP.Views
             rtbConversa.SelectionStart = rtbConversa.Text.Length;
             rtbConversa.ScrollToCaret();
         }
+        /*private void richTextBox_Scroll(object sender, EventArgs e)
+        {
+            // Verifica se o usuário está rolando para o final do RichTextBox
+            if (rtbConversa.SelectionStart >= rtbConversa.TextLength - 1)
+            {
+                // O usuário está rolando para o final, então mantenha a rolagem automática
+                rtbConversa.SelectionStart = rtbConversa.Text.Length;
+                rtbConversa.ScrollToCaret();
+            }
+        }*/
 
         private void frmConversa_FormClosing(object sender, FormClosingEventArgs e)
         {

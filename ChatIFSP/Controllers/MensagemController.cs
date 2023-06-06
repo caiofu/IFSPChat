@@ -38,6 +38,7 @@ namespace ChatIFSP.Controllers
             else return null;
         }
 
+
         public static void SetarVisualizacaoMensagens(int conversa, DataContext Context)
         {
             //DataContext dbContext = new DataContext();
@@ -105,12 +106,9 @@ namespace ChatIFSP.Controllers
                 if (msgNovas != null && msgNovas.Count > 0)
                 {
                     SetarVisualizacaoMensagens(conversa, dc);
-                    _conversa = ConversaController.CarregaConversa(conversa, dc);
                 }
-                else
-                {
-                    _conversa = ConversaController.CarregaConversa(conversa, dc);
-                }
+                _conversa = ConversaController.CarregaConversa(conversa, dc);
+               
             }
             
             return _conversa;

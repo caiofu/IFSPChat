@@ -29,6 +29,22 @@ namespace ChatIFSP.Controllers
             { 
             }
         }
+
+        public static int RetornaIdContato(int idConversa)
+        {
+            int idContato;
+            try
+            {
+                idContato = Context.Participantes
+                    .Where(p => p.idConversa == idConversa && p.idUsuario != UsuariosController.idUsuarioLogado)
+                    .FirstOrDefault().idUsuario!;
+                return idContato;
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
+        }
         
         public static int RetornaIdConversaParticipantes(int idUsuarioContato)
         {

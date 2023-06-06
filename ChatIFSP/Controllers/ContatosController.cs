@@ -77,6 +77,16 @@ namespace ChatIFSP.Controllers
 
         }
 
+        public static Usuarios CarregaDadosContato(int idContato)
+        {
+            Usuarios contato = Context.Usuarios
+                 .Where(u => u.idUsuario == idContato)
+                 .FirstOrDefault();
+            
+            
+            return contato;
+        }
+
         public static List<Usuarios> CarregaDadosSolicitacaoMensagem(int idUsuario)
         {
 			DataContext dbContext = new DataContext();

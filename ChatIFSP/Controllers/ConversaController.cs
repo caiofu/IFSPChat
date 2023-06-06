@@ -16,8 +16,7 @@ namespace ChatIFSP.Controllers
     public class ConversaController : DefaultController
     {
         //public static int usuarioAtual = 1;
-        
-
+       
         public static String AtualizaConversa(Mensagens msg, DataContext Context)
         {
             var entry = Context.Entry(msg);
@@ -26,9 +25,10 @@ namespace ChatIFSP.Controllers
             String status = "\U0001F4E4"; //envio
             StringBuilder mensagem = new StringBuilder();
             mensagem.AppendLine(status + "[" + msg.dataMensagem.ToString("HH:mm") + "] - " + msg.Usuario.apelido + ":");
-            mensagem.AppendLine(msg.mensagem + "\n");
+            //mensagem.AppendLine(msg.mensagem + "\n");
+            mensagem.AppendLine(msg.mensagem);
 
-            return mensagem.ToString();
+            return mensagem.ToString().Trim();
         }
 
         public static String CarregaConversa(int idConversa, DataContext Context)
@@ -46,17 +46,18 @@ namespace ChatIFSP.Controllers
                 .ToList();
             
 
-            dbContext.Dispose();
+            //dbContext.Dispose();
             foreach (var msg in mensagens) //formatação das mensagem para exibição em tela
             {                              //necessário validação do outro participante para definir melhor o status
                 String status = UsuariosController.idUsuarioLogado == msg.idRemetente ? MensagemController.VerificaStatusMensagem(msg) : ""; //if ternário para definir status da mensagem
 
                 conversa.AppendLine(status + "[" + msg.dataMensagem.ToString("HH:mm") + "] - " + msg.Usuario.apelido + ":");
                 conversa.AppendLine(msg.mensagem + "\n");
+                //conversa.AppendLine(msg.mensagem);
                 // conversa.AppendLine(msg.);
             }
 
-            return conversa.ToString();
+            return conversa.ToString().Trim();
             //DataContext dbContext = new DataContext();
             /*StringBuilder conversa = new StringBuilder();
 
