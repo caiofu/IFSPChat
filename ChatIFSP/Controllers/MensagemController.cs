@@ -61,15 +61,10 @@ namespace ChatIFSP.Controllers
             Context.SaveChanges();
         }
         public static String VerificaStatusMensagem(Mensagens msg) 
-        {
-            /*
-                1- Enviada
-                2-
-                3- Visualizada
-             */
-            String status;
-            if (msg.statusMensagem == 1) status = "\U0001F4E4";
-            else if (msg.statusMensagem == 2) status = "\U0001F4E8";
+        {                                                                    
+            String status;                                                             //1-ENVIADO                     
+            if (msg.statusMensagem == 1) status = "\U0001F4E4";                        //2-RECEBIDO
+            else if (msg.statusMensagem == 2) status = "\U0001F4E8";                   //3-VISUALIZADO
             else status = "👁🗨";
 
             return status;
@@ -120,7 +115,7 @@ namespace ChatIFSP.Controllers
 
 		}
 
-        public static int ContaQtdMensagensNovas()
+        /*public static int ContaQtdMensagensNovas()
         {
             DataContext dataContext = new DataContext();//Esta sendo criado para cada metodo por conta das Threads concorrentes
 
@@ -136,6 +131,6 @@ namespace ChatIFSP.Controllers
             return qtdMensagens;
 
             
-        }
+        }*/
     }
 }

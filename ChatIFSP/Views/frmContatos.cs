@@ -370,7 +370,7 @@ namespace ChatIFSP.Views
 				}
 
 				//Verificando se tem novas mensagens
-				int teste = MensagemController.ContaQtdMensagensNovas();
+				/*int teste = MensagemController.ContaQtdMensagensNovas();
 
                 if (quantidadeMsgNaoLidas != MensagemController.ContaQtdMensagensNovas())
 				{
@@ -383,7 +383,7 @@ namespace ChatIFSP.Views
                         contaSolicitacoesMensagens = 0;
                         CarregaContatos(idUsuarioLogado);
                     });
-                }
+                }*/
 				// Acessar o controle userControlContatos de forma segura usando Invoke ou BeginInvoke
 
 
