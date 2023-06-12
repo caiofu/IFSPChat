@@ -1,4 +1,5 @@
-﻿using ChatIFSP.Models;
+﻿using ChatIFSP.Data;
+using ChatIFSP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,22 @@ namespace ChatIFSP.Controllers
             { 
             }
         }
+
+        public static int RetornaIdContato(int idConversa)
+        {
+            int idContato;
+            try
+            {
+                idContato = Context.Participantes
+                    .Where(p => p.idConversa == idConversa && p.idUsuario != UsuariosController.idUsuarioLogado)
+                    .FirstOrDefault().idUsuario!;
+                return idContato;
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
+        }
         
         public static int RetornaIdConversaParticipantes(int idUsuarioContato)
         {
@@ -48,5 +65,15 @@ namespace ChatIFSP.Controllers
             }
 			
 		}
+
+        public static List<int> RetornaListaContatos()
+        {
+            DataContext dataContext = new DataContext();//Esta sendo criado para cada metodo por conta das Threads concorrentes
+            List<int> result = dataContext.Participantes
+                .Where(m => m.idUsuario == UsuariosController.idUsuarioLogado)
+                .Select(m=> m.idConversa)
+                .ToList();
+            return result;
+        }
     }
 }

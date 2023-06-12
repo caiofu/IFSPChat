@@ -23,7 +23,7 @@ namespace ChatIFSP.Controllers
 
             if (usuario != null)
 			{
-                usuario.status = 1; //Defini o status para online
+                usuario.status = 1; //Define o status para online
                 Context.Usuarios.Update(usuario);
                 Context.SaveChanges();
 
@@ -165,6 +165,54 @@ namespace ChatIFSP.Controllers
 
         }
 
+        public static int AtualizaDados(Usuarios dadosUsuario, string senhaAtual)
+        {
+            /*  Retornos
+             * 0 - Erro ao atualizar
+             * 1 - Senha atual errada
+             * 2 - Cadastrado com sucesso
+            */
+            int retorno = 0;
+            try
+            {
+               var dados = Context.Usuarios.Where(u => u.idUsuario == UsuariosController.idUsuarioLogado).FirstOrDefault();
+              
+               // if (dados.senha == CriptografarSenha(senhaAtual))
+                //{
+                  var atualiza =  Context.Usuarios.FirstOrDefault(e => e.idUsuario == idUsuarioLogado);
+                    if(atualiza != null)
+                    {
+                        atualiza.email = dadosUsuario.email;
+                        atualiza.nome = dadosUsuario.nome;
+                        atualiza.apelido = dadosUsuario.apelido;
+                        
+                        if(dadosUsuario.senha != null)
+                        {
+                            atualiza.senha = CriptografarSenha(dadosUsuario.senha);
+                    }
+                        
+
+                        if(dadosUsuario.foto != null)
+                        {
+							atualiza.foto = dadosUsuario.foto;
+						}
+                        Context.SaveChanges();
+                        retorno = 2;
+                    }
+               // }
+               // else //Senha atual errada
+               // {
+               //     retorno = 0;
+               // }
+                
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Erro ao atualizar dados! tente novamente mais tarde!");
+            }
+
+            return retorno;
+        }
         public static String CriptografarSenha(String senha)
         {
             byte[] bytesSenha = Encoding.UTF8.GetBytes(senha); // Converte a senha em bytes
@@ -173,11 +221,7 @@ namespace ChatIFSP.Controllers
             return Convert.ToBase64String(hash); // Retorna o hash como uma string base64
         }
 
-        //public static bool VerificarSenha(String senha, String hash)
-        //{
-        //    String hashSenha = CriptografarSenha(senha); // Calcula o hash da senha fornecida
-        //    return hashSenha == hash; // Compara o hash calculado com o hash armazenado
-        //}
+       
 
     }
 

@@ -34,10 +34,10 @@
             txtMensagem = new TextBox();
             btnEnviar = new Button();
             pcbContato = new PictureBox();
-            pictureBox2 = new PictureBox();
+            pcbUsuario = new PictureBox();
             tmrConversa = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pcbContato).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pcbUsuario).BeginInit();
             SuspendLayout();
             // 
             // rtbConversa
@@ -49,7 +49,7 @@
             rtbConversa.Size = new Size(415, 287);
             rtbConversa.TabIndex = 2;
             rtbConversa.Text = "";
-            rtbConversa.TextChanged += rtbConversa_TextChanged;
+            rtbConversa.VScroll += rtbConversa_VScroll;
             // 
             // txtMensagem
             // 
@@ -58,6 +58,7 @@
             txtMensagem.Name = "txtMensagem";
             txtMensagem.Size = new Size(346, 60);
             txtMensagem.TabIndex = 0;
+            txtMensagem.KeyUp += txtMensagem_KeyUp;
             // 
             // btnEnviar
             // 
@@ -75,23 +76,24 @@
             pcbContato.Location = new Point(433, 58);
             pcbContato.Name = "pcbContato";
             pcbContato.Size = new Size(159, 159);
-            pcbContato.SizeMode = PictureBoxSizeMode.StretchImage;
+            pcbContato.SizeMode = PictureBoxSizeMode.Zoom;
             pcbContato.TabIndex = 3;
             pcbContato.TabStop = false;
             // 
-            // pictureBox2
+            // pcbUsuario
             // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(433, 254);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(159, 157);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 4;
-            pictureBox2.TabStop = false;
+            pcbUsuario.Image = (Image)resources.GetObject("pcbUsuario.Image");
+            pcbUsuario.Location = new Point(433, 254);
+            pcbUsuario.Name = "pcbUsuario";
+            pcbUsuario.Size = new Size(159, 157);
+            pcbUsuario.SizeMode = PictureBoxSizeMode.Zoom;
+            pcbUsuario.TabIndex = 4;
+            pcbUsuario.TabStop = false;
             // 
             // tmrConversa
             // 
-            tmrConversa.Interval = 3000;
+            tmrConversa.Enabled = true;
+            tmrConversa.Interval = 500;
             tmrConversa.Tick += tmrConversa_Tick;
             // 
             // frmConversa
@@ -99,17 +101,16 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(600, 423);
-            Controls.Add(pictureBox2);
+            Controls.Add(pcbUsuario);
             Controls.Add(pcbContato);
             Controls.Add(btnEnviar);
             Controls.Add(txtMensagem);
             Controls.Add(rtbConversa);
             Name = "frmConversa";
             Text = "Conversa";
-            FormClosing += frmConversa_FormClosing;
             Load += frmConversa_Load;
             ((System.ComponentModel.ISupportInitialize)pcbContato).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pcbUsuario).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -118,7 +119,7 @@
         private TextBox txtMensagem;
         private Button btnEnviar;
         private PictureBox pcbContato;
-        private PictureBox pictureBox2;
+        private PictureBox pcbUsuario;
         public RichTextBox rtbConversa;
         private System.Windows.Forms.Timer tmrConversa;
     }

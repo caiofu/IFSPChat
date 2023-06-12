@@ -28,6 +28,10 @@ namespace ChatIFSP.Views
 		private int quantidadeContatos = 0;
 		private int quatidadeSolicitacoesMensagens = 0;
 
+		//Total de mensagens nao lidas
+		private int quantidadeMsgNaoLidas = 0;
+	
+
 		//Variavel para lidar com o time (atualizar lista de contatos)
 		private System.Windows.Forms.Timer timerVerificarContatos;
 
@@ -50,6 +54,8 @@ namespace ChatIFSP.Views
         }
 		private void CarregaContatos(int idUsuario)
 		{
+			//Conta quantidade de mensagens não lidas
+			quantidadeMsgNaoLidas = MensagemController.ContaQtdMensagensNovas();
 			var todosContatos = ContatosController.CarregaDadosContatos(idUsuario);
 			//quantidadeContatos = todosContatos.Count(); //Nao esta sumindo contatos quando nao é solicitaçao VERIICAR
 			//MessageBox.Show(quantidadeContatos.ToString());
@@ -62,6 +68,7 @@ namespace ChatIFSP.Views
 				//Verifica se o contato esta online ou não para separar
 				if (usuarioContato.status == 1) //Online
 				{
+					
 					//contatosOnline.Add(usuarioContato);
 					flowLayoutPanelContatosOnline.Controls.Add(new userControlContatos(usuarioContato));
 					contaOnline++;
@@ -98,9 +105,9 @@ namespace ChatIFSP.Views
 			try
 			{
 				//Definir o novo tamanho da tela
-				Screen screen = Screen.PrimaryScreen;
-				int screenHeight = screen.WorkingArea.Height;
-				this.Height = screenHeight * 3 / 4;
+				//Screen screen = Screen.PrimaryScreen;
+				//int screenHeight = screen.WorkingArea.Height;
+				//this.Height = screenHeight * 3 / 4;
 				//Lista de contatos
 				CarregaContatos(idUsuarioLogado);
 
@@ -118,7 +125,9 @@ namespace ChatIFSP.Views
 					picBoxUsuario.Image = Image.FromStream(ms);
 				}
 
-			}
+				//Seta a quantidade de mensagens nao lidas.
+               // quantidadeMsgNaoLidas = MensagemController.ContaQtdMensagensNovas();
+            }
 			catch (Exception ex)
 			{
 				System.Console.WriteLine(ex.Message);
@@ -187,6 +196,7 @@ namespace ChatIFSP.Views
 		{
 			//Abrir janela de edição de perfil
 			frmEditarPerfil EditarPerfil = new frmEditarPerfil(UsuariosController.idUsuarioLogado);
+			EditarPerfil.FormClosed += EditarPerfil_FormClosed;
 			EditarPerfil.ShowDialog();
 
 		}
@@ -326,18 +336,25 @@ namespace ChatIFSP.Views
 		//Timer que vai fica fazendo a requisiçao
 		private void TimerVerificarContatos_Tick(object sender, EventArgs e)
 		{
-			//Verificar antes se teve mudança para depois carregar..
+			
 			Task.Run(() =>
 			{
-				contaOffline = 0;
-				contaOnline = 0;
-				contaSolicitacoesMensagens = 0;
-				//A comparaçao esta com diferente por que pode ser que varie em quem vai ser o maior e menor.
-				if (ContatosController.VerificaQuantidadeContatos(idUsuarioLogado) != quantidadeContatos)
+				
+				int auxQtdOffline = contaOffline;
+				int auxQtdOnline = contaOnline;
+				
+                //Verificar antes se teve mudança para depois carregar..
+                //A comparaçao esta com diferente por que pode ser que varie em quem vai ser o maior e menor.(verifica tambem se  esta online ou nao)
+                if (ContatosController.VerificaQuantidadeContatos(idUsuarioLogado) != quantidadeContatos 
+					|| ContatosController.VerificaContatoOnline(auxQtdOnline, auxQtdOffline) == true )
 				{
 					Invoke((MethodInvoker)delegate
 					{
-						CarregaContatos(idUsuarioLogado);
+                        contaOffline = 0;
+                        contaOnline = 0;
+                        contaSolicitacoesMensagens = 0;
+						
+                        CarregaContatos(idUsuarioLogado);
 					});
 
 				}
@@ -345,9 +362,28 @@ namespace ChatIFSP.Views
 				{
 					Invoke((MethodInvoker)delegate
 					{
-						CarregaContatos(idUsuarioLogado);
+                        contaOffline = 0;
+                        contaOnline = 0;
+                        contaSolicitacoesMensagens = 0;
+                        CarregaContatos(idUsuarioLogado);
 					});
 				}
+
+				//Verificando se tem novas mensagens
+				int teste = MensagemController.ContaQtdMensagensNovas();
+
+                if (quantidadeMsgNaoLidas != MensagemController.ContaQtdMensagensNovas())
+				{
+                    //Setamos a quantidade para que mude o icone somente a primeira vez.
+                    quantidadeMsgNaoLidas = MensagemController.ContaQtdMensagensNovas();
+                    Invoke((MethodInvoker)delegate
+                    {
+                        contaOffline = 0;
+                        contaOnline = 0;
+                        contaSolicitacoesMensagens = 0;
+                        CarregaContatos(idUsuarioLogado);
+                    });
+                }
 				// Acessar o controle userControlContatos de forma segura usando Invoke ou BeginInvoke
 
 
@@ -359,18 +395,28 @@ namespace ChatIFSP.Views
 		{
             // Executar ação desejada ao fechar o formulário
            
-            DialogResult result = MessageBox.Show("Deseja realmente sair do IF Chat??", "Fechar", MessageBoxButtons.YesNo);
+           // DialogResult result = MessageBox.Show("Deseja realmente sair do IF Chat??", "Fechar", MessageBoxButtons.YesNo);
 
             // Verificar se o usuário escolheu "Não" para cancelar o fechamento
-            if (result == DialogResult.No)
-            {
-                e.Cancel = true; // Cancelar o fechamento do formulário
-            }
-            else
-            {
-                // Executar ação de fechamento
-                UsuariosController.Logout();
-            }
+            //if (result == DialogResult.No)
+            //{
+            //    e.Cancel = true; // Cancelar o fechamento do formulário
+            //}
+            //else
+            //{
+            //    // Executar ação de fechamento
+            //    UsuariosController.Logout();
+            //}
+            UsuariosController.Logout();
+        }
+
+		private void EditarPerfil_FormClosed (object sender, FormClosedEventArgs e)
+		{
+            contaOffline = 0;
+            contaOnline = 0;
+            contaSolicitacoesMensagens = 0;
+            this.frmContatos_Load(sender, e); 
+
         }
 
     }
