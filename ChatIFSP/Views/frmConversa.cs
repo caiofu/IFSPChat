@@ -10,66 +10,41 @@ using System.Windows.Forms;
 using ChatIFSP.Controllers;
 using ChatIFSP.Data;
 using ChatIFSP.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ChatIFSP.Views
 {
     public partial class frmConversa : Form
     {
         static int conversaAtual;
-        static bool isScrolling = false;
         static DataContext Context;
-
+        //private CancellationTokenSource cancellationTokenSource;
         public frmConversa(int idConversa, DataContext ContextConversa)
         {
             Context = ContextConversa;
             conversaAtual = idConversa;
-            ConversaController.GeraEstadoConversa(conversaAtual);
             InitializeComponent();
-
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
-            EnviarMensagem(txtMensagem.Text);
-        }
-
-        private void txtMensagem_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
+            if (!txtMensagem.Text.Trim().Equals(""))
             {
-                EnviarMensagem(txtMensagem.Text);
-            }
-        }
-        private void EnviarMensagem(String msg)
-        {
-            if (!msg.Trim().Equals(""))
-            {
-                Task.Run(async () =>
+                var mensagem = MensagemController.EnviaMensagem(txtMensagem.Text.Trim(), UsuariosController.idUsuarioLogado, conversaAtual, Context);
+                if (mensagem != null)
                 {
-                    if (txtMensagem.InvokeRequired)
+                    if (rtbConversa.Text.Equals(""))
                     {
-                        txtMensagem.Invoke((MethodInvoker)delegate
-                        {
-                            txtMensagem.Text = "";
-                        });
+                        rtbConversa.Text = ConversaController.AtualizaConversa(mensagem, Context);
                     }
-                    else txtMensagem.Text = "";
-                    var mensagem = MensagemController.SalvaMensagem(msg.Trim(), UsuariosController.idUsuarioLogado, conversaAtual, Context);
-                    if (mensagem != null)
+                    else
                     {
-                        if (rtbConversa.Text.Equals(""))
-                        {
-                            rtbConversa.Text = await ConversaController.AtualizaConversa(mensagem, Context);
-                        }
-                        else
-                        {
-                            rtbConversa.AppendText("\n\n" + await ConversaController.AtualizaConversa(mensagem, Context));
-                        }
-                        ConversaController.estadoConversa = rtbConversa.Text;
+                        rtbConversa.AppendText("\n\n" + ConversaController.AtualizaConversa(mensagem, Context));
                     }
-                    else MessageBox.Show("Erro no envio da mensagem");
-                });
+                    //ConversaController.AtualizaConversa(mensagem);
+                    txtMensagem.Text = "";
+
+                }
+                else MessageBox.Show("Erro no envio da mensagem");
             }
         }
 
@@ -83,7 +58,7 @@ namespace ChatIFSP.Views
             Usuarios contato = new Usuarios();
             meuUsuario = UsuariosController.CarregadadosUsuario(UsuariosController.idUsuarioLogado);
             idContato = ParticipantesController.RetornaIdContato(conversaAtual);
-            contato = ContatosController.CarregaDadosContatoConversa(idContato);
+            contato = ContatosController.CarregaDadosContato(idContato);
 
 
             /*lbNomeUsuario.Text = meuUsuario.nome;
@@ -104,8 +79,6 @@ namespace ChatIFSP.Views
             //criar função para dar update na tabela de mensagem, para alterar status das mensagens do outro participante
             MensagemController.SetarVisualizacaoMensagens(conversaAtual, Context);
             rtbConversa.Text = ConversaController.CarregaConversa(conversaAtual, Context);
-            rtbConversa.SelectionStart = rtbConversa.Text.Trim().Length;
-            rtbConversa.ScrollToCaret();
         }
 
         private void tmrConversa_Tick(object sender, EventArgs e)
@@ -124,43 +97,55 @@ namespace ChatIFSP.Views
                         rtbConversa.Invoke((MethodInvoker)delegate
                         {
                             rtbConversa.Text = conversa;
-                            rtbConversa.SelectionStart = rtbConversa.Text.Trim().Length;
-                            rtbConversa.ScrollToCaret();
                         });
                     }
                     else
                     {
                         rtbConversa.Text = conversa;
-                        rtbConversa.SelectionStart = rtbConversa.Text.Trim().Length;
                     }
 
                 }
-                //else MessageBox.Show("caindo não tem msg");
-            });
+                /*while (!cancellationToken.IsCancellationRequested)
+                {
+                    conversa = MensagemController.BuscaMensagens(conversaAtual);
+                    if (conversa != null)
+                    {
+                        rtbConversa.Invoke((MethodInvoker)delegate
+                        {
+                            rtbConversa.Text = conversa;
+                        });
+                    }
+
+                    // Verificar o cancelamento antes de aguardar o próximo intervalo do timer
+                    if (!cancellationToken.IsCancellationRequested)
+                    {
+                        // Aguardar o próximo intervalo do timer (3 segundos)
+                        Thread.Sleep(3000);
+                    }
+                }*/
+            }/*, cancellationToken*/);
         }
 
-        /*private void rtbConversa_TextChanged(object sender, EventArgs e)
+        private void rtbConversa_TextChanged(object sender, EventArgs e)
         {
-            //MessageBox.Show(isScrolling.ToString());
-            //MessageBox.Show("Tamanho do texto: " + rtbConversa.Text.Trim().Length);
-            if (isScrolling)
+            rtbConversa.SelectionStart = rtbConversa.Text.Length;
+            rtbConversa.ScrollToCaret();
+        }
+        /*private void richTextBox_Scroll(object sender, EventArgs e)
+        {
+            // Verifica se o usuário está rolando para o final do RichTextBox
+            if (rtbConversa.SelectionStart >= rtbConversa.TextLength - 1)
             {
-               // MessageBox.Show("Tamanho do texto: " + rtbConversa.Text.Trim().Length);
-                rtbConversa.SelectionStart = rtbConversa.Text.Trim().Length;
+                // O usuário está rolando para o final, então mantenha a rolagem automática
+                rtbConversa.SelectionStart = rtbConversa.Text.Length;
                 rtbConversa.ScrollToCaret();
             }
-            rtbConversa.ScrollToCaret();
-
         }*/
 
         private void frmConversa_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //cancellationTokenSource?.Cancel(); // cancelamento do timer para evitar processos simultâneos durante fechamento do formulário
             Context.Dispose();
-        }
-
-        private void rtbConversa_VScroll(object sender, EventArgs e)
-        {
-            isScrolling = true;
         }
     }
 }

@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
@@ -78,7 +77,7 @@ namespace ChatIFSP.Controllers
 
         }
 
-        public static Usuarios CarregaDadosContatoConversa(int idContato)
+        public static Usuarios CarregaDadosContato(int idContato)
         {
             Usuarios contato = Context.Usuarios
                  .Where(u => u.idUsuario == idContato)
@@ -129,46 +128,12 @@ namespace ChatIFSP.Controllers
 
         public static int VerificaQuantidadeContatos(int idUsuario)
         {
-            int quantidade =0;
-            try
-            {
-                DataContext dbContext = new DataContext();//Criada um novo data Context para nao dar conflito com as Threads
-                 quantidade = dbContext.Contatos
-                      .AsNoTracking()
-                      .Where(c => c.idUsuario == idUsuario /*|| c.idUsuarioContato == idUsuario*/)
-                      .Count();
-                return quantidade;
-            }
-            catch (Exception ex)
-            {
-                return quantidade;
-                MessageBox.Show("Erro ao se conectar com o banco");
-            }
-        
-			
-        }
-
-        public static bool VerificaContatoOnline(int qtdOnline, int qtdOffline)
-        {
-            bool resposta = false;
-            DataContext dbContext = new DataContext();
-           
-            int auxQtdOffline = dbContext.Contatos
-                                .Join(dbContext.Usuarios, con => con.idUsuarioContato, us => us.idUsuario, (con, us) => new { con, us })
-                                .Where(x => x.con.idUsuario == UsuariosController.idUsuarioLogado && x.us.status == 0)
-                                .Count();
-
-            int auxQtdOnline= dbContext.Contatos
-                                .Join(dbContext.Usuarios, con => con.idUsuarioContato, us => us.idUsuario, (con, us) => new { con, us })
-                                .Where(x => x.con.idUsuario == UsuariosController.idUsuarioLogado && x.us.status == 1)
-                                .Count();
-
-            //VERIFICA SE HOUVE MUDANÇA
-            if (qtdOnline != auxQtdOnline || qtdOffline != auxQtdOffline)
-                {
-                    resposta = true;
-                }
-            return resposta;
+          DataContext dbContext = new DataContext();//Criada um novo data Context para nao dar conflito com as Threads
+          int  quantidade = dbContext.Contatos
+				.AsNoTracking()
+				.Where(c => c.idUsuario == idUsuario /*|| c.idUsuarioContato == idUsuario*/)
+		        .Count();
+			return quantidade;
         }
 
     }
