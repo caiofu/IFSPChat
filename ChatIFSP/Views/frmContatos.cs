@@ -370,20 +370,20 @@ namespace ChatIFSP.Views
 				}
 
 				//Verificando se tem novas mensagens
-				int teste = MensagemController.ContaQtdMensagensNovas();
+				//int teste = MensagemController.ContaQtdMensagensNovas();
 
-                if (quantidadeMsgNaoLidas != MensagemController.ContaQtdMensagensNovas())
-				{
-                    //Setamos a quantidade para que mude o icone somente a primeira vez.
-                    quantidadeMsgNaoLidas = MensagemController.ContaQtdMensagensNovas();
-                    Invoke((MethodInvoker)delegate
-                    {
-                        contaOffline = 0;
-                        contaOnline = 0;
-                        contaSolicitacoesMensagens = 0;
-                        CarregaContatos(idUsuarioLogado);
-                    });
-                }
+    //            if (quantidadeMsgNaoLidas != MensagemController.ContaQtdMensagensNovas())
+				//{
+    //                //Setamos a quantidade para que mude o icone somente a primeira vez.
+    //                quantidadeMsgNaoLidas = MensagemController.ContaQtdMensagensNovas();
+    //                Invoke((MethodInvoker)delegate
+    //                {
+    //                    contaOffline = 0;
+    //                    contaOnline = 0;
+    //                    contaSolicitacoesMensagens = 0;
+    //                    CarregaContatos(idUsuarioLogado);
+    //                });
+    //            }
 				// Acessar o controle userControlContatos de forma segura usando Invoke ou BeginInvoke
 
 

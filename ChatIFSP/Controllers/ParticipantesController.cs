@@ -66,14 +66,14 @@ namespace ChatIFSP.Controllers
 			
 		}
 
-        public static List<int> RetornaListaContatos()
-        {
-            DataContext dataContext = new DataContext();//Esta sendo criado para cada metodo por conta das Threads concorrentes
-            List<int> result = dataContext.Participantes
-                .Where(m => m.idUsuario == UsuariosController.idUsuarioLogado)
-                .Select(m=> m.idConversa)
-                .ToList();
-            return result;
-        }
+        //public static List<int> RetornaListaContatos()
+        //{
+        //    DataContext dataContext = new DataContext();//Esta sendo criado para cada metodo por conta das Threads concorrentes
+        //    List<int> result = dataContext.Participantes
+        //        .Where(m => m.idUsuario == UsuariosController.idUsuarioLogado)
+        //        .Select(m=> m.idConversa)
+        //        .ToList();
+        //    return result;
+        //}
     }
 }
