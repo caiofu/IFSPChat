@@ -8,23 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.AccessControl;
 using ChatIFSP.Data;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace ChatIFSP.Controllers
 {
     internal class MensagemController : DefaultController
     {
         
-        public static Mensagens ?EnviaMensagem(String msg, int remetente, int conversa, DataContext Context)
+        public static Mensagens ?SalvaMensagem(String msg, int remetente, int conversa, DataContext Context)
         {
-            //DataContext dbContext = new DataContext();
             if (!msg.Trim().Equals(""))
             {
-                //var conversaAtual = Context.Conversas.Find(msg.idConversa);
-                //conversaAtual.qtdMensagens += 1;
-                //Context.Conversas.Update(conversaAtual);
                 var mensagem = new Mensagens();
                 mensagem.idRemetente = remetente;
-                //mensagem.destinatarioId = destinatario;
                 mensagem.idConversa = conversa;
                 mensagem.statusMensagem = 1;
                 mensagem.dataMensagem = DateTime.Now;
@@ -32,7 +28,7 @@ namespace ChatIFSP.Controllers
 
                 Context.Mensagens.Add(mensagem);
                 Context.SaveChanges();
-                //Context.Dispose();
+
                 return mensagem;
             }
             else return null;
@@ -41,29 +37,11 @@ namespace ChatIFSP.Controllers
 
         public static void SetarVisualizacaoMensagens(int conversa, DataContext Context)
         {
-            //DataContext dbContext = new DataContext();
-            //chamar controller mensagem para setar 1 por 1 retorno de uma lista de mensagens da conversa
-            //selecionar as mensagens do outro participante com status != visualizado
-            
-            List<Mensagens> lista = Context.Mensagens.Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3).ToList();
+            List<Mensagens> lista = Context.Mensagens
+                .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
+                .ToList();
             lista.ForEach(p => p.statusMensagem = 3);
             lista.ForEach(p => Context.Mensagens.Update(p));
-            Context.SaveChanges();
-            
-            
-            return;
-
-
-            List<Mensagens> mensagens = Context.Mensagens
-                .Where(m => m.idConversa == conversa && m.idRemetente != UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
-                //.AsNoTracking()
-                .ToList();
-
-            foreach (Mensagens msg in mensagens)
-            {
-                msg.statusMensagem = 3;
-            }
-
             Context.SaveChanges();
         }
 
@@ -82,8 +60,13 @@ namespace ChatIFSP.Controllers
 
             Context.SaveChanges();
         }
-        public static String VerificaStatusMensagem(Mensagens msg) //meu mensagemStatus está String, alterar para padrão BD Caio
+        public static String VerificaStatusMensagem(Mensagens msg) 
         {
+            /*
+                1- Enviada
+                2-
+                3- Visualizada
+             */
             String status;
             if (msg.statusMensagem == 1) status = "\U0001F4E4";
             else if (msg.statusMensagem == 2) status = "\U0001F4E8";
@@ -92,7 +75,7 @@ namespace ChatIFSP.Controllers
             return status;
         }
 
-        public static async Task<string> BuscaMensagens(int conversa)
+        public static async Task<String> ?BuscaMensagens(int conversa)
         { 
             String ?_conversa = null;
             
@@ -103,18 +86,27 @@ namespace ChatIFSP.Controllers
                     .AsNoTracking()
                     .ToListAsync();
 
-                if (msgNovas != null && msgNovas.Count > 0)
+                /*List<Mensagens> msgNaoLidas = await dc.Mensagens
+                    .Where(m => m.idConversa == conversa && m.idRemetente == UsuariosController.idUsuarioLogado && m.statusMensagem != 3)
+                    .AsNoTracking()
+                    .ToListAsync();*/
+
+                if (msgNovas != null && msgNovas.Count > 0 /*|| msgNaoLidas != null && msgNaoLidas.Count > 0*/)
                 {
                     SetarVisualizacaoMensagens(conversa, dc);
+                    //_conversa = ConversaController.CarregaConversa(conversa, dc);
                 }
                 _conversa = ConversaController.CarregaConversa(conversa, dc);
-               
+                if (ConversaController.estadoConversa.Equals(_conversa))
+                {
+                    return null;
+                }
+                ConversaController.estadoConversa = _conversa;
             }
-            
             return _conversa;
         }
         
-        /*public static bool TemMensagemNova(int idConversa)
+        public static bool TemMensagemNova(int idConversa)
         {
             bool msgNova = false;
             
@@ -126,6 +118,24 @@ namespace ChatIFSP.Controllers
             }
 			return msgNova;
 
-		}*/
+		}
+
+        public static int ContaQtdMensagensNovas()
+        {
+            DataContext dataContext = new DataContext();//Esta sendo criado para cada metodo por conta das Threads concorrentes
+
+            int qtdMensagens = 0;
+            List<int> idConversasContatos = ParticipantesController.RetornaListaContatos();
+            foreach (int idConversa in idConversasContatos)
+            {
+                qtdMensagens += dataContext.Mensagens
+            .Where(m => m.idConversa == idConversa && m.statusMensagem != 3)
+            .Count();
+            }
+
+            return qtdMensagens;
+
+            
+        }
     }
 }

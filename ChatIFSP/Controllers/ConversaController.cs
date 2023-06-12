@@ -15,12 +15,25 @@ namespace ChatIFSP.Controllers
     //ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
     public class ConversaController : DefaultController
     {
+
         //public static int usuarioAtual = 1;
-       
-        public static String AtualizaConversa(Mensagens msg, DataContext Context)
+        public static String estadoConversa;
+
+        public static void GeraEstadoConversa(int conversa)
+        {
+            try {
+                estadoConversa = CarregaConversa(conversa, Context);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Falha no carregamento da conversa");
+            }
+            
+        }
+        public static async Task<String> AtualizaConversa(Mensagens msg, DataContext Context)
         {
             var entry = Context.Entry(msg);
-            entry.Reference(m => m.Usuario).Load();
+            await entry.Reference(m => m.Usuario).LoadAsync();
 
             String status = "\U0001F4E4"; //envio
             StringBuilder mensagem = new StringBuilder();
