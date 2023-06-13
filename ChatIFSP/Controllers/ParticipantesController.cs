@@ -33,7 +33,7 @@ namespace ChatIFSP.Controllers
 
         public static int RetornaIdContato(int idConversa)
         {
-            int idContato;
+            int idContato=0;
             try
             {
                 idContato = Context.Participantes
@@ -43,7 +43,8 @@ namespace ChatIFSP.Controllers
             }
             catch(Exception ex)
             {
-                return 0;
+                MessageBox.Show(ex.Message);
+                return idContato;
             }
         }
         

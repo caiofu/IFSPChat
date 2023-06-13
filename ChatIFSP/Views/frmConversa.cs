@@ -14,12 +14,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ChatIFSP.Views
 {
-    public partial class frmConversa : Form
+    public partial class frmConversa : frmBase
     {
         static int conversaAtual;
         static bool isScrolling = false;
         static DataContext Context;
-
+        static bool possuiContato;
+        private int idContato;
         public frmConversa(int idConversa, DataContext ContextConversa)
         {
             Context = ContextConversa;
@@ -78,7 +79,6 @@ namespace ChatIFSP.Views
         {
             //método inicializa conversa, com conteúdo e foto dos participantes
             //Carregando dados do usuario logado
-            int idContato;
             Usuarios meuUsuario = new Usuarios();
             Usuarios contato = new Usuarios();
             meuUsuario = UsuariosController.CarregadadosUsuario(UsuariosController.idUsuarioLogado);
@@ -106,6 +106,13 @@ namespace ChatIFSP.Views
             rtbConversa.Text = ConversaController.CarregaConversa(conversaAtual, Context);
             rtbConversa.SelectionStart = rtbConversa.Text.Trim().Length;
             rtbConversa.ScrollToCaret();
+            possuiContato = ContatosController.VerificaPossuiContato(UsuariosController.idUsuarioLogado, contato.idUsuario);
+            if (!possuiContato)
+            {
+                btnAdicionaSolicitacao.Visible = true;
+                btnAdicionaSolicitacao.Enabled = true;
+                idContato = contato.idUsuario;
+            }
         }
 
         private void tmrConversa_Tick(object sender, EventArgs e)
@@ -161,6 +168,17 @@ namespace ChatIFSP.Views
         private void rtbConversa_VScroll(object sender, EventArgs e)
         {
             isScrolling = true;
+        }
+
+        private void btnAdicionaSolicitacao_Click(object sender, EventArgs e)
+        {
+            if (ContatosController.AdicionaContato(idContato))
+            {
+                btnAdicionaSolicitacao.Visible = false;
+                btnAdicionaSolicitacao.Enabled = false;
+                MessageBox.Show("Contato adicionado com sucesso!");
+            }
+            else MessageBox.Show("Falha em adicionar novo contato");
         }
     }
 }

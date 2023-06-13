@@ -55,7 +55,7 @@ namespace ChatIFSP.Views
 		private void CarregaContatos(int idUsuario)
 		{
 			//Conta quantidade de mensagens não lidas
-			quantidadeMsgNaoLidas = MensagemController.ContaQtdMensagensNovas();
+			//quantidadeMsgNaoLidas = MensagemController.ContaQtdMensagensNovas();
 			var todosContatos = ContatosController.CarregaDadosContatos(idUsuario);
 			//quantidadeContatos = todosContatos.Count(); //Nao esta sumindo contatos quando nao é solicitaçao VERIICAR
 			//MessageBox.Show(quantidadeContatos.ToString());

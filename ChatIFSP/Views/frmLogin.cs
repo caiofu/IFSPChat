@@ -10,7 +10,6 @@ namespace ChatIFSP
     {
         Thread ThLogin;//Colocando em outra Thread para fechar essa janela sem problemas
         private int idUsuarioLogado;
-
         //Testes
         private BackgroundWorker loginWorker;
         public frmLogin()
@@ -165,7 +164,6 @@ namespace ChatIFSP
         private void AbrirJanelaContatos(object obj)
         {
             Application.Run(new frmContatos(idUsuarioLogado));
-
         }
     }
 

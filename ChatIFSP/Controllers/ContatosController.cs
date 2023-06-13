@@ -122,8 +122,6 @@ namespace ChatIFSP.Controllers
                     resposta = false;
                 }
             }
-
-
 			return resposta;
         }
 

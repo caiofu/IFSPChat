@@ -64,7 +64,7 @@ namespace ChatIFSP.Controllers
             {                              //necessário validação do outro participante para definir melhor o status
                 String status = UsuariosController.idUsuarioLogado == msg.idRemetente ? MensagemController.VerificaStatusMensagem(msg) : ""; //if ternário para definir status da mensagem
 
-                conversa.AppendLine(status + "[" + msg.dataMensagem.ToString("HH:mm") + "] - " + msg.Usuario.apelido + ":");
+                conversa.AppendLine(status + "[" + msg.dataMensagem.ToString("dd/MM/yyyy HH:mm") + "] - " + msg.Usuario.apelido + ":");
                 conversa.AppendLine(msg.mensagem + "\n");
                 //conversa.AppendLine(msg.mensagem);
                 // conversa.AppendLine(msg.);
@@ -111,7 +111,6 @@ namespace ChatIFSP.Controllers
         {
             DataContext ContextConversa = new DataContext(); 
             frmConversa AbrirConversa = new frmConversa(idConversa, ContextConversa);
-
             AbrirConversa.ShowDialog();
         }
     }
