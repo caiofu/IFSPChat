@@ -94,6 +94,7 @@
             // 
             this.tmrConversa.Enabled = true;
             this.tmrConversa.Interval = 500;
+            this.tmrConversa.Tick += new System.EventHandler(this.tmrConversa_Tick);
             // 
             // btnAdicionaSolicitacao
             // 
