@@ -68,6 +68,7 @@
             this.btnEnviar.Text = "ENVIAR";
             this.btnEnviar.UseVisualStyleBackColor = true;
             this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
+            this.btnEnviar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMensagem_KeyUp);
             // 
             // pcbContato
             // 

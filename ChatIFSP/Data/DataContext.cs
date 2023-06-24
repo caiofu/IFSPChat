@@ -14,7 +14,8 @@ namespace ChatIFSP.Data
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			// Configurar a conexão com o banco de dados MySQL
-			optionsBuilder.UseMySQL("Server=furegati.com.br;Database=furega76_if_chat;User=furega76_ifsp;Password=ifsp2023123456;", mysqlOption =>
+			//optionsBuilder.UseMySQL("Server=furegati.com.br;Database=furega76_if_chat;User=furega76_ifsp;Password=ifsp2023123456;", mysqlOption =>
+			optionsBuilder.UseMySQL("Server=labfpc10;Database=furega76_if_chat;User=root2;Password='root';", mysqlOption =>
 			{
 				mysqlOption.EnableRetryOnFailure(
 					maxRetryCount: 5, //n[umero máximo de tentativas de conexão com o banco em caso de falha
